@@ -92,8 +92,8 @@ class Element(object):
 
 		self.abundances = pd.read_sql('SELECT isotope, abundance, unc_abundance FROM chart WHERE Z={} AND abundance>0'.format(self.Z), _get_connection('decay'))
 		if self.name=='Ta': ### Ta has a naturally occuring isomer
-			self.abundances['isotope'] = map(lambda i:i.replace('180TA','180TAm1'), self.abundances['isotope'])
-		self.isotopes = list(map(str, self.abundances['isotope']))
+			self.abundances['isotope'] = list(map(lambda i:i.replace('180TA','180TAm1'), self.abundances['isotope']))
+		self.isotopes = list(map(str, self.abundances['isotope'])) #list() had to be added around map.(). This is because map returns a map object wich is an iterator. This must be made into a list.
 
 		self.mass_coeff = pd.read_sql('SELECT energy, mu, mu_en FROM mass_coeff WHERE Z={}'.format(self.Z), _get_connection('ziegler'))
 		self._mc_interp, self._mc_en_interp = None, None

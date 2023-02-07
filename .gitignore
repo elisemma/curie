@@ -1,0 +1,4 @@
+curie-0.0.16.dist-info/*
+.DS_Store
+curie/__pycache__/*
+curie/data/endf.db
